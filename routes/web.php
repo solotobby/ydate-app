@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +19,27 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => 'web'], function () {
 
-Auth::routes();
+    Route::prefix('auth')->group( function(){ 
+        Route::get('register', [RegisterController::class, 'register']);
+        Route::post('register', [RegisterController::class, 'processRegistration']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('login', [LoginController::class, 'login']);
+
+     });
+// Route::prefix('social')->name('facebook.')->group( function(){
+// Route::prefix('social')->name('social.google.')->group( function(){
+//     Route::get('google/auth', [SocialiteController::class, 'loginUsingGoogle'])->name('auth');
+//     Route::get('google/callback', [SocialiteController::class, 'callbackFromGoogle']);
+// });
+
+
+Route::group(['middleware' => 'auth'], function () { 
+    Auth::routes(['auth']);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+
+
+});
