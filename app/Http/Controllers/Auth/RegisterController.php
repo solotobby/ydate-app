@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -60,7 +61,17 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        return $request;
+        $user =  User::create([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'user_name' => null,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $profile = Profile::create(['user_id' => $user->id, 'reg_channel' => 'direct']);
+
+        return [$user, $profile];
      }
 
     protected function validator(array $data)

@@ -20,13 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->string('password');
-            $table->string('google_id')->nullable();
-            $table->string('twitter_id')->nullable();
-            $table->string('facebook_id')->nullable();
-            $table->string('reg_channel');
-            $table->string('city');
-            $table->string('country');
-            $table->string('country_code');
+           
             $table->timestamps();
         });
     }

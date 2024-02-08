@@ -10,7 +10,7 @@
     <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" type="image/png">
 
     <!-- title and description-->
-    <title>Socialite</title>
+    <title>YDate - Register</title>
     <meta name="description" content="YDate">
    
     <!-- css files -->
