@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -7,650 +6,624 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/images/favicon.png') }}" rel="icon" type="image/png">
+    <link href="{{ asset('assets/images/favicon.png')}}" rel="icon" type="image/png">
 
     <!-- title and description-->
-    <title>Socialite</title>
+    <title>YDate</title>
     <meta name="description" content="Socialite - Social sharing network HTML Template">
    
     <!-- css files -->
-    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">  
+    <link rel="stylesheet" href="{{asset('assets/css/tailwind.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">  
     
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
  
-    <!-- custom style -->
-    <style> 
-        #header-nav nav a.uk-active         { color:rgb(59, 130, 246)}
-        .dark #header-nav nav a.uk-active   { color:#fff !important}
-    </style>
- 
 </head>
-<body class="bg-white dark:bg-slate-950 overflow-x-hidden">
+<body>
  
-    <!-- header -->
-    <header class="lg:py-4 lg:px-6 py-3 px-4 border-b border-slate-200/60 dark:border-slate-600/40 bg-white/95 backdrop-blur-xl z-40 dark:bg-slate-900/80 uk-animation-slide-top-small" uk-sticky>
-        <div class="max-w-5xl mx-auto">
-            <div class="flex justify-between items-center">
+    <div id="wrapper">
+
+        <!-- header -->
+        @include('layouts.header.member_header')
+    
+        <!-- sidebar -->
+        @include('layouts.sidebar.member_sidebar')
+        
+
+        <!-- main contents -->
+        @yield('content')
+
+    </div>
+
+
+    <!-- open chat box -->
+    <div>
+        <button type="button" class="sm:m-10 m-5 px-4 py-2.5 rounded-2xl bg-gradient-to-tr from-blue-500 to-blue-700 text-white shadow fixed bottom-0 right-0 group flex items-center gap-2">
+            
+            <svg class="w-6 h-6 group-aria-expanded:hidden duration-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"></path>
+            </svg>
+    
+            <div class="text-base font-semibold max-sm:hidden"> Chat </div>
+    
+            <svg class="w-6 h-6 -mr-1 hidden group-aria-expanded:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+            </svg>
               
-                <div class="flex gap-2 items-center z-20 relative">
-                    <button type="button" class="p-2.5 text-lg max-md:flex hidden group z" uk-toggle="target: #header-nav ; cls:max-md:hidden">
-                        <ion-icon name="menu" class="group-aria-expanded:inline hidden"></ion-icon>
-                        <ion-icon name="close" class="group-aria-expanded:hidden"></ion-icon>
+        </button>
+        <div  class="bg-white rounded-xl drop-shadow-xl  sm:w-80 w-screen border-t dark:bg-dark3 dark:border-slate-600" id="chat__box"
+              uk-drop="offset:10;pos: bottom-right; animate-out: true; animation: uk-animation-scale-up uk-transform-origin-bottom-right; mode: click">
+                                              
+              <div class="relative">
+                <div class="p-5">
+                    <h1 class="text-lg font-bold text-black"> Chats </h1>
+                </div>
+        
+                <!-- search input defaul is hidden -->
+                <div class="bg-white p-3 absolute w-full top-11 border-b flex gap-2 hidden dark:border-slate-600 dark:bg-slate-700 z-10" 
+                     uk-scrollspy="cls:uk-animation-slide-bottom-small ; repeat: true; duration:0" id="search__chat">
+                    
+                    <div class="relative w-full">
+                        <input type="text" class="w-full rounded-3xl dark:!bg-white/10" placeholder="Search">
+    
+                        <button type="button" class="absolute  right-0  rounded-full shrink-0 px-2 -translate-y-1/2 top-1/2" 
+                                uk-toggle="target: #search__chat ; cls: hidden">
+                            
+                                <ion-icon name="close-outline" class="text-xl flex"></ion-icon>
+                        </button>
+                    </div>
+    
+                </div>
+                
+                <!-- button actions -->
+                <div class="absolute top-0 -right-1 m-5 flex gap-2 text-xl">
+                    <button uk-toggle="target: #search__chat ; cls: hidden">
+                        <ion-icon name="search-outline"></ion-icon>
                     </button>
-                    <a href="{{ url('/') }}"><img src="{{ asset('assets/images/logo.png') }}" alt="" class="h-7"></a>
+                    <button uk-toggle="target: #chat__box ; cls: uk-open">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
                 </div>
- 
-                <div id="header-nav" class="max-md:hidden max-md:bg-white max-md:p-5 max-md:fixed max-md:top-0 max-md:shadow-md max-md:left-0 max-md:pt-14 max-md:w-full max-md:z-10">
-                    <nav class="flex lg:items-center font-medium text-slate-500 dark:text-white/70 lg:gap-1 max-md:border-t max-md:pt-2 max-md:flex max-md:flex-col" uk-scrollspy-nav="closest: a ; scroll: true">
-           
-                        <a class="lg:py-1.5 py-2.5 px-3 duration-500 hover:text-black" href="#home">Home</a> 
-                        <a class="lg:py-1.5 py-2.5 px-3 duration-500 hover:text-black" href="#features">Features</a> 
-                        <a class="lg:py-1.5 py-2.5 px-3 duration-500 hover:text-black" href="#demos"> Demos</a> 
-                        <a class="lg:py-1.5 py-2.5 px-3 duration-500 hover:text-black" href="#faq">Faq</a>
-                        
+                
+                <!-- tabs -->
+                <div class="page-heading bg-slat e-50 ">
+                     
+                    <nav class="nav__underline -mt-7 px-5">
+        
+                        <ul class="group" uk-switcher="connect: #chat__tabs ; animation: uk-animation-slide-right-medium, uk-animation-slide-left-medium"> 
+                       
+                            <li> <a href="#" class="inline-block py-[18px] border-b-2 border-transparent aria-expanded:text-black aria-expanded:border-black aria-expanded:dark:text-white aria-expanded:dark:border-white"> Friends  </a> </li>
+                            <li> <a href="#"> Groups </a> </li>
+                            
+                        </ul> 
+        
                     </nav>
-                </div>
-
-                <div class="flex items-center z-20 relative">
-
-                    <div class="flex items-center gap-4 relative pl-6 text-slate-600">
-                         
-                        <a class="bg-blue-500 dark:bg-pink-700/30 text-white shadow px-4 h-9 text-sm rounded-md flex items-center gap-2 font-semibold" href="{{ url('register') }}">
-                            <ion-icon name="cart-outline" class="text-xl"></ion-icon> Register
-                        </a>
-
-                        <a class="bg-blue-500 dark:bg-pink-700/30 text-white shadow px-4 h-9 text-sm rounded-md flex items-center gap-2 font-semibold" href="{{ url('login') }}">
-                            <ion-icon name="cart-outline" class="text-xl"></ion-icon> Login 
-                        </a>
-                         
-                        <div class="w-[1px] bg-slate-200 h-6 absolute left-0 hidden"></div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </header>
-
-
-    <main class="md:mt-10 -mt-8 pt-8">
-
-        <div class="relative md:mb-44">
-            <div class="max-w-5xl mx-auto space-y-32 max-md:p-8">
-          
-                <!-- hero -->
-                <section id="home">
-                    
-                    <div class="flex flex-col justify-center mt-6 text-center gap-6">
-                        <div>
-                            <img src="assets/images/logo-icon-2.png" alt="" class="max-md:w-24  mx-auto">
-                        </div>
-                        <p class="max-w-2xl mx-auto text-gray-500 sm:text-lg text-sm leading-relaxed dark:text-white"> Professional and elegant template for creating a social network , designed with a clean, customizable and modern</p>
-                    </div>
-           
-                    <div class="md:flex justify-center items-center gap-4 mt-8 font-semibold text-sm hidden">
-                        <a href="#demos" uk-scroll class="flex items-center gap-2 bg-slate-100 rounded-lg px-5 py-3 text-black dark:bg-slate-900 dark:text-white"> 
-                            <ion-icon name="eye-outline" class="hidden"></ion-icon>
-                            Check Demo 
-                        </a>
-                        <a class="flex items-center gap-3 rounded-lg px-5 py-2.5 bg-black text-white shadow dark:bg-white/90 dark:text-black" target="_blank" href="https://themeforest.net/item/socialite-online-community-html-template/26345647">  
-                            Buy now  
-                        </a>
-                    </div>
-    
-                    <!-- hero -->
-                    <div class="flex items-center justify-center relative md:mt-32 mt-20" >
         
-                        <div class="lg:rounded-xl rounded-md shadow-xl z-10 scale-125 overflow-hidden relative w-1/2">
-                            <img src="assets/images/demos/home.png" alt="" class="">
-                        </div>
-        
-                        <div class="w-1/2 absolute left-0 delay-500 uk-animation-slide-right-medium">
-                            <div class="lg:rounded-xl rounded-md shadow-md overflow-hidden -skew-x-6">
-                                <img src="assets/images/demos/messages.png" alt="">
-                            </div>
-                        </div>
-                        <div class="w-1/2 absolute right-0 duration-50 uk-animation-slide-left-medium">
-                            <div class="lg:rounded-xl rounded-md shadow-md overflow-hidden skew-x-6">
-                                <img src="assets/images/demos/timeline.png" alt="">
-                            </div>
-                        </div>
-     
-                    </div>
-                    
-                   
-                </section>
-                
-                <!-- features -->
-                <section>
-                    
-                    <div class="grid md:grid-cols-3 grid-cols-2 gap-5 md:gap-y-10 md:mt-8 -mt-6 md:text-xl text-sm font-medium" id="features" uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 100">
-    
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-pink-200 md:p-1.5 p-1 inline-flex ring right-2 ring-pink-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="reader" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div>  User Friendly  <br> Design  </div>
-                        </div>
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-yellow-200 md:p-1.5 p-1 inline-flex ring right-2 ring-yellow-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="cog" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div> Modern Features   </div>
-                        </div>
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-emerald-200 md:p-1.5 p-1 inline-flex ring right-2 ring-emerald-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="leaf" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div>  Clean Markup </div>
-                        </div>
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-sky-200 md:p-1.5 p-1 inline-flex ring ring-sky-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="albums" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div> Pixel Perfect </div>
-                        </div>
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-purple-200 md:p-1.5 p-1 inline-flex ring right-2 ring-purple-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="moon" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div> Dark and Light  <br> Schemes  </div>
-                        </div>
-                        <div class="space-x-4 flex items-center">
-                            <div class="rounded-full  bg-pink-200 md:p-1.5 p-1 inline-flex ring right-2 ring-pink-50 ring-offset-1 dark:ring-slate-600">
-                                <ion-icon name="layers" class="md:text-4xl text-2xl text-white drop-shadow-md"></ion-icon>
-                            </div>
-                            <div> Customizable   <br> Components  </div>
-                        </div>
-    
-                    </div>
-    
-                </section>
-    
-            </div>
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" class="absolute -bottom-44 w-full max-lg:hidden rotate-3">
-                <path fill="#f1f5f9" d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" class="fill-current text-slate-50 dark:text-slate-800/60"></path>
-            </svg>
-
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" class="absolute -bottom-40 w-full max-lg:hidden -rotate-6">
-                <path fill="#f1f5f9" d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" class="fill-current text-slate-50/80 dark:text-slate-800/40"></path>
-            </svg>
-            
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" class="absolute -bottom-44 w-full max-lg:hidden">
-                <path fill="#f1f5f9" d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" class="fill-current text-slate-100 dark:text-slate-800"></path>
-            </svg>
-
-        </div>
-
-            
-        <!-- demos -->
-        <section class="bg-slate-100 md:py-20 py-8 md:my-20 my-8 relative dark:bg-dark2"> 
-            
-            <div class="max-w-5xl mx-auto max-lg:p-8">
-
-                <div class="text-center md:space-y-3" id="demos"> 
-                    <div class="lg:text-3xl text-lg md:font-bold font-semibold text-black dark:text-white"> Check the Demos </div>
-                    <p class="max-w-3xl mx-auto text-gray-500 md:text-base text-sm leading-relaxed dark:text-white/80">  Explore our demo pages and different layout of designs </p>
                 </div>
-                
-                <div class="grid sm:grid-cols-3 gap-6 lg:mt-20 mt-10 text-center font-normal capitalize"   uk-scrollspy="target: > a ; cls: uk-animation-slide-bottom-small ; delay: 160">
-                    
-                   
-                    <a href="feed.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/home.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> Home </p> 
-                        </div>
-                    </a>
-                    <a href="messages.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/messages.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> messages </p> 
-                        </div>
-                    </a>
-                    <a href="video.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/videos.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> Videos </p> 
-                        </div>
-                    </a>
-                    <a href="video-watch.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/videos-watch.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> Video watch</p> 
-                        </div>
-                    </a>
-                    <a href="event.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/events.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> event </p> 
-                        </div>
-                    </a>
-                    <a href="event-2.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/event-2.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> event 2 </p> 
-                        </div>
-                    </a>
-                    <a href="pages.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/pages.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> pages </p> 
-                        </div>
-                    </a>
-                    <a href="groups.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/groups.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> groups </p> 
-                        </div>
-                    </a>
-                    <a href="groups-2.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/groups-2.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> groups 2 </p> 
-                        </div>
-                    </a>
-                    <a href="market.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/products.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> Marketplace </p> 
-                        </div>
-                    </a> 
-                    <a href="product-view-1.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/products.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> product-view 1 </p> 
-                        </div>
-                    </a>
-                    <a href="product-view-2.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/product-view-2.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> product-view 2 </p> 
-                        </div>
-                    </a>
-                    <a href="blog.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/blogs.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> blog </p> 
-                        </div>
-                    </a>
                   
-                     <a href="blog-2.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/blogs-2.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> blog 2 </p> 
-                        </div>
-                    </a>
-                    <a href="blog-read.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/blog-read.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> blog read </p> 
-                        </div>
-                    </a>
-                    <a href="games.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/games.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> games </p> 
-                        </div>
-                    </a>
-                    <a href="funding.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/funding.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> funding </p> 
-                        </div>
-                    </a>
-
-                    <a href="timeline.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/timeline.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> timeline </p> 
-                        </div>
-                    </a>
-                    <a href="timeline-page.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/timeline-page.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> timeline page</p> 
-                        </div>
-                    </a>
-                    <a href="timeline-group.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/timeline-group.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> timeline group </p> 
-                        </div>
-                    </a>
-                    <a href="timeline-event.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/timeline-event.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> timeline event </p> 
-                        </div>
-                    </a>
-                    <a href="timeline-funding.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/timeline-funds.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> timeline funding </p> 
-                        </div>
-                    </a>
-
-                    <a href="setting.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/settings.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> setting </p> 
-                        </div>
-                    </a>
-                    <a href="upgrade.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/upgrade.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> upgrade </p> 
-                        </div>
-                    </a>
-                    <a href="components.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/components.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> components </p> 
-                        </div>
-                    </a>
-
-                    <a href="form-login.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/form-login.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> login </p> 
-                        </div>
-                    </a>
-                    <a href="form-register.html" target="_blank">
-                        <div class="group"> 
-                            <div class="md:rounded-lg rounded-md shadow-md overflow-hidden duration-300 group-hover:-translate-y-1 group-hover:scale-[1.01] group-hover:shadow-lg">
-                                <img src="assets/images/demos/form-register.png" alt="" class="w-full h-full object-cover inset-0">
-                            </div>
-                            <p class="py-4 group-hover:text-black"> register </p> 
-                        </div>
-                    </a>
-                  
+                <!-- tab 2 optional -->
+                <div class="grid grid-cols-2 px-3 py-2 bg-slate-50  -mt-12 relative z-10 text-sm border-b  hidden" uk-switcher="connect: #chat__tabs; toggle: * > button ; animation: uk-animation-slide-right uk-animation-slide-top">
+                    <button class="bg-white shadow rounded-md py-1.5"> Friends </button>
+                    <button> Groups </button>
                 </div>
- 
-            </div>
-
-        </section>
- 
+    
+                <!-- chat list -->
+                <div class="uk-switcher overflow-hidden rounded-xl -mt-8" id="chat__tabs">
+    
+                    <!-- tab list 1 -->
+                    <div class="space-y -m t-5 p-3 text-sm font-medium h-[280px] overflow-y-auto">
         
-        <div class="relative max-lg:hidden">
-            <svg class="absolute -mt-20 fill-current text-slate-100 dark:text-slate-800/40 invisible lg:visible rotate-180 scale-x-[-1]" width="100%" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100" xml:space="preserve">
-                <polygon points="2560 0 2560 100 0 100"></polygon>
-            </svg> 
-        </div>
-
-        <div class="max-w-5xl mx-auto md:space-y-32 max-md:p-8 relative lg:mt-36">
-          
-            <!-- code preview -->
-            <section>
-
-                <div class="flex max-md:flex-col items-center md:gap-20 gap-10">
-
-                    <div class="flex-1 md:space-y-8 space-y-3">
-         
-                        <div class="rounded-full  bg-slate-200 dark:bg-slate-700 md:p-1.5 p-2 inline-flex ring right-2 ring-slate-100 ring-offset-1 dark:ring-slate-800 dark:ring-offset-slate-500">
-                            <ion-icon name="reader" class="md:text-4xl text-2xl text-white drop-shadow-md slate-800"></ion-icon>
-                        </div>
-
-                        <div class="md:text-3xl text-lg md:font-bold font-semibold text-black dark:text-white"> What is inside </div>
-                        <p class="max-w-3xl mx-auto text-gray-500  md:text-lg leading-loose  dark:text-white/80"> 
-                            high-quality code that’s been thoroughly tested and optimized for performance, 
-                            <br class="max-md:hidden"> <br class="max-md:hidden"> 
-                            you’ll receive access to clean and well-documented code that’s easy to customize </p>
-
-                    </div>
-                    <div class="md:w-3/5 w-full">
-
-                        <a href="#">
-                            <div class=" relative">
-                                <div class="bg-gray-950 w-full py-1.5 px-3 md:rounded-t-xl rounded-t-md"> <svg class="w-6" viewBox="0 0 420 100" focusable="false"><circle fill="#ff5f57" cx="50" cy="50" r="50"></circle><circle fill="#febc2e" cx="210" cy="50" r="50"></circle><circle fill="#28c840" cx="370" cy="50" r="50"></circle></svg> </div>
-                                <img src="assets/images/demos/code-prev.jpg" alt="" class="w-full h-full object-cover inset-0 md:rounded-b-xl rounded-b-md shadow-lg">
-    
-                                <img src="assets/images/brand-uikit.svg" alt="" class="w-12 h-12 rounded-full absolute  top-8 -right-6 bg-white shadow-md p-1.5">
-                                <img src="assets/images/brand-tailwind.svg" alt="" class="w-12 h-12 rounded-full absolute  -bottom-5 right-6 bg-white shadow-md p-1.5">
-    
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-7 rounded-full">
+                                <div> Jesse Steeve </div>
                             </div>
                         </a>
- 
-                    </div>
-      
-
-                </div>
-
-            </section>
- 
-            <!-- Faq -->
-            <section class="max-md:my-20">
-
-                <div class="text- center space-y-3" id="faq">
-                    <div class="p-1 text-sm text-yellow-500 bg-yellow-100 px-2 inline-block rounded-md -rotate-3 dark:bg-yellow-400/20"> Support</div>
-                    <div class="lg:text-3xl text-lg md:font-bold font-semibold text-black dark:text-white"> Any Question?</div>
-                </div>
-
-                <ul class="relative space-y-3 mt-10 max-w-3xl mx-auto hidden" uk-accordion="active: 0">
-                    <li class="uk-open">
-                        <a class="flex items-center justify-between py-4 px-5 text-lg bg-slate-100 rounded-md font-semibold group dark:text-white dark:bg-gray-800 uk-accordion-title" href="#">
-                            Can i use this for WordPress
-                            <svg class="w-6 h-6 duration-200 group-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" style="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-7 rounded-full">
+                                <div> John Michael </div>
+                            </div>
                         </a>
-                        <div class="p-2 dark:text-white/80 uk-accordion-content text-base">
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="flex items-center justify-between py-4 px-5 text-lg bg-slate-100 rounded-md font-semibold group dark:text-white dark:bg-gray-800 uk-accordion-title" href="#">
-                            Can i use this for WordPress
-                            <svg class="w-6 h-6 duration-200 group-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" style="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-7 rounded-full">
+                                <div> Monroe Parker </div>
+                            </div>
                         </a>
-                        <div class="p-2 dark:text-white/80 uk-accordion-content text-base">
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="flex items-center justify-between py-4 px-5 text-lg bg-slate-100 rounded-md font-semibold group dark:text-white dark:bg-gray-800 uk-accordion-title" href="#">
-                            Can i use this for WordPress
-                            <svg class="w-6 h-6 duration-200 group-aria-expanded:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" style="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-7 rounded-full">
+                                <div> James Lewis </div>
+                            </div>
+                        </a> 
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-7 rounded-full">
+                                <div> Martin Gray </div>
+                            </div>
                         </a>
-                        <div class="p-2 dark:text-white/80 uk-accordion-content text-base">
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.</p>
-                        </div>
-                    </li>
-                </ul>  
-                
-                <div class="grid lg:grid-cols-2 lg:gap-10 mt-16 gap-4 text-sm">
-                    <div>
-                    <h1 class="md:text-xl text-base font-semibold mb-2 text-black dark:text-white"> Can I use Socialite For React , Vue or Larval ? </h1>
-                    <p class="lg:text-lg"> absolutely yes. Socialite Built <a href="https://tailwindcss.com/" class="underline">tailwindcss</a> Rapidly build modern websites without ever leaving your HTML</p>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-6.jpg" alt="" class="w-7 rounded-full">
+                                <div> Alexa stella </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-7 rounded-full">
+                                <div> Jesse Steeve </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-7 rounded-full">
+                                <div> John Michael </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-7 rounded-full">
+                                <div> Monroe Parker </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-7 rounded-full">
+                                <div> James Lewis </div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-7 rounded-full">
+                                <div> Martin Gray </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-6.jpg" alt="" class="w-7 rounded-full">
+                                <div> Alexa stella </div>
+                            </div>
+                        </a>
+                        
+                         
                     </div>
-                    <div>
-                    <h1 class="md:text-xl text-base font-semibold mb-2 text-black dark:text-white"> Is this Wordpress theme ? </h1>
-                    <p class="lg:text-lg"> No. This is n't Wordpress theme is just HTML template. You can integrate any platform you want</p>
+        
+                    <!-- tab list 2 -->
+                    <div class="space-y -m t-5 p-3 text-sm font-medium h-[280px] overflow-y-auto">
+        
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-7 rounded-full">
+                                <div> Jesse Steeve </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-7 rounded-full">
+                                <div> John Michael </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-7 rounded-full">
+                                <div> Monroe Parker </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-7 rounded-full">
+                                <div> James Lewis </div>
+                            </div>
+                        </a> 
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-7 rounded-full">
+                                <div> Martin Gray </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-6.jpg" alt="" class="w-7 rounded-full">
+                                <div> Alexa stella </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-7 rounded-full">
+                                <div> Jesse Steeve </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-7 rounded-full">
+                                <div> John Michael </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-7 rounded-full">
+                                <div> Monroe Parker </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-7 rounded-full">
+                                <div> James Lewis </div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-7 rounded-full">
+                                <div> Martin Gray </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block">
+                            <div class="flex items-center gap-3.5 rounded-lg p-2 hover:bg-secondery dark:hover:bg-white/10">
+                                <img src="assets/images/avatars/avatar-6.jpg" alt="" class="w-7 rounded-full">
+                                <div> Alexa stella </div>
+                            </div>
+                        </a>
+                        
+                         
                     </div>
-                    <div>
-                    <h1 class="md:text-xl text-base font-semibold mb-2 text-black dark:text-white"> Is Socialite working fully ? </h1>
-                    <p class="lg:text-lg">  No. is just HTML template . hire backend developer on <a href="https://www.freelancer.com/" class="underline">Freelancer</a> or <a href="https://www.upwork.com/" class="underline">Upwork</a></p>
-                    </div>
+                    
                 </div>
+    
+    
+              </div>
               
-            </section>
-  
-            <!-- other templates -->
-            <section>
+              <div class="w-3.5 h-3.5 absolute -bottom-2 right-5 bg-white rotate-45 dark:bg-dark3"></div>
+        </div>
+    </div>
 
-                <div class="text- center space-y-3">
-                    <div class="p-1 text-sm text-green-500 bg-green-100 px-2 inline-block rounded-md max-md:hidden -rotate-3 dark:bg-green-400/20"> Awesome</div>
-                    <div class="lg:text-3xl text-lg md:font-bold font-semibold text-black dark:text-white"> Other Products </div>
-                    <p class="max-w-3xl text-gray-500 text-sm sm:text-lg leading-relaxed dark:text-white/80 max-md:hidden"> a great solution ready for you to start building your apps? Use our templates and design system as the rock-solid foundation for your internal UI component library </p>
-                </div>
-
-                <div class="relative mt-8" tabindex="-1" uk-slider="finite: true">
-
-                    <div class="overflow-hidden uk-slider-container">
-                       
-                      <ul class="-ml-2 uk-slider-items w-[calc(100%+0.875rem)]"> 
-                       
-                    
-                        <!-- single template -->
-                        <li class="md:w-1/2 w-full pr-3.5">
-                            <a href="https://themeforest.net/item/instello-ultimate-photo-sharing-html-template/29882650" target="_blank">
-                                <div class="flex flex-col">
-                                    <div class="relative w-full h-full">
-                                        <img src="assets/images/demos/prev-installo.png" alt="" class="w-full h-full object-cover inset-0 md:rounded-lg rounded-md shadow">
-                                    </div> 
-                                    <div class="relative mt-4"> 
-                                        <div class="md:font-semibold font-medium lg:text-xl text-lg text-black dark:text-white">Instello</div>
-                                        <div class="font-medium text-gray-400 mt-0.5 dark:text-white">Instello network</div>
-                                        <span class="absolute bg-gray-100 font-medium md:px-3.5 px-3 py-1 right-0 top-3 rounded-full text-black dark:bg-slate-700 dark:text-white">$19 </span>
-                                    </div>
-                                </div>
-                            </a> 
-                        </li>
-
-                        <!-- single template -->
-                        <li class="md:w-1/2 w-full pr-3.5">
-                            <a href="https://themeforest.net/item/flex-modern-multipurpose-tailwind-template/34769270" target="_blank">
-                                <div class="flex flex-col">
-                                    <div class="relative w-full h-full">
-                                        <img src="assets/images/demos/prev-flex.png" alt="" class="w-full h-full object-cover inset-0 md:rounded-lg rounded-md shadow">
-                                    </div> 
-                                    <div class="relative mt-4"> 
-                                        <div class="md:font-semibold font-medium lg:text-xl text-lg text-black dark:text-white">Flex</div>
-                                        <div class="font-medium text-gray-400 mt-0.5 dark:text-white">Landing</div>
-                                        <span class="absolute bg-gray-100 font-medium md:px-3.5 px-3 py-1 right-0 top-3 rounded-full text-black dark:bg-slate-700 dark:text-white">$19</span>
-                                    </div>
-                                </div>
-                            </a> 
-                        </li>
-                         
-                        <!-- single template -->
-                        <li class="md:w-1/2 w-full pr-3.5">
-                            <a href="https://themeforest.net/item/courseplus-modern-learning-management-application/23651460" target="_blank">
-                                <div class="flex flex-col">
-                                    <div class="relative w-full h-full">
-                                        <img src="assets/images/demos/prev-courseplus.png" alt="" class="w-full h-full object-cover inset-0 md:rounded-lg rounded-md shadow">
-                                    </div> 
-                                    <div class="relative mt-4"> 
-                                        <div class="md:font-semibold font-medium lg:text-xl text-lg text-black dark:text-white"> CoursePlus </div>
-                                        <div class="font-medium text-gray-400 mt-0.5 dark:text-white">Educational</div>
-                                        <span class="absolute bg-gray-100 font-medium md:px-3.5 px-3 py-1 right-0 top-3 rounded-full text-black dark:bg-slate-700 dark:text-white">$24 </span>
-                                    </div>
-                                </div>
-                            </a> 
-                        </li>
-
-                      </ul>
+    
+    <!-- post preview modal --> 
+    <div class="hidden lg:p-20 max-lg:!items-start" id="preview_modal" uk-modal="">
+        
+        <div class="uk-modal-dialog tt relative mx-auto overflow-hidden shadow-xl rounded-lg lg:flex items-center ax-w-[86rem] w-full lg:h-[80vh]">
+          
+            <!-- image previewer -->
+            <div class="lg:h-full lg:w-[calc(100vw-400px)] w-full h-96 flex justify-center items-center relative">
                 
-                    </div>
-                   
-                    <button type="button" class="absolute -translate-y-1/2 bg-white rounded-full bottom-1/2 -left-5 grid w-10 h-10 place-items-center shadow-md dark:bg-dark3" uk-slider-item="previous"> <ion-icon name="chevron-back" class="text-2xl"></ion-icon></button>
-                    <button type="button" class="absolute -right-5 -translate-y-1/2 bg-white rounded-full bottom-1/2 grid w-10 h-10 place-items-center shadow-md dark:bg-dark3" uk-slider-item="next"> <ion-icon name="chevron-forward" class="text-2xl"></ion-icon></button>
-                    
+                <div class="relative z-10 w-full h-full">
+                    <img src="assets/images/post/post-1.jpg" alt="" class="w-full h-full object-cover absolute">
                 </div>
-       
-            </section>
-
-        </div> 
-   
-
-    </main>
   
-    <footer>
-        <div class="max-w-5xl mx-auto mb-6 mt-32 pt-6 border-t dark:border-slate-800">
-
-            <div class="flex justify-center text-sm dark:to-white">
-
-                Made with ❤️ by <a class="ml-2 hover:underline hover:text-blue-500" href="https://foxthemes.net/">Foxthemes</a>
+                <!-- close button -->
+                <button type="button"  class="bg-white rounded-full p-2 absolute right-0 top-0 m-3 uk-animation-slide-right-medium z-10 dark:bg-slate-600 uk-modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
 
             </div>
 
+            <!-- right sidebar -->
+            <div class="lg:w-[400px] w-full bg-white h-full relative  overflow-y-auto shadow-xl dark:bg-dark2 flex flex-col justify-between">
+                
+                <div class="p-5 pb-0">
+
+                    <!-- story heading -->
+                    <div class="flex gap-3 text-sm font-medium">
+                        <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-9 h-9 rounded-full">
+                        <div class="flex-1">
+                            <h4 class="text-black font-medium dark:text-white"> Steeve </h4>
+                            <div class="text-gray-500 text-xs dark:text-white/80"> 2 hours ago</div>
+                        </div>
+ 
+                        <!-- dropdown -->
+                        <div class="-m-1">
+                            <button type="button" class="button__ico w-8 h-8"> <ion-icon class="text-xl" name="ellipsis-horizontal"></ion-icon> </button>
+                            <div  class="w-[253px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true"> 
+                                <nav> 
+                                    <a href="#"> <ion-icon class="text-xl shrink-0" name="bookmark-outline"></ion-icon>  Add to favorites </a>  
+                                    <a href="#"> <ion-icon class="text-xl shrink-0" name="notifications-off-outline"></ion-icon> Mute Notification </a>  
+                                    <a href="#"> <ion-icon class="text-xl shrink-0" name="flag-outline"></ion-icon>  Report this post </a>  
+                                    <a href="#"> <ion-icon class="text-xl shrink-0" name="share-outline"></ion-icon>  Share your profile </a>  
+                                    <hr>
+                                    <a href="#" class="text-red-400 hover:!bg-red-50 dark:hover:!bg-red-500/50"> <ion-icon class="text-xl shrink-0" name="stop-circle-outline"></ion-icon>  Unfollow </a>  
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="font-normal text-sm leading-6 mt-4"> Photography is the art of capturing light with a camera.  it can be fun, challenging. It can also be a hobby, a passion. 📷 </p>
+
+                    <div class="shadow relative -mx-5 px-5 py-3 mt-3">
+                        <div class="flex items-center gap-4 text-xs font-semibold">
+                            <div class="flex items-center gap-2.5">
+                                <button type="button" class="button__ico text-red-500 bg-red-100 dark:bg-slate-700"> <ion-icon class="text-lg" name="heart"></ion-icon> </button>
+                                <a href="#">1,300</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button type="button" class="button__ico bg-slate-100 dark:bg-slate-700"> <ion-icon class="text-lg" name="chatbubble-ellipses"></ion-icon> </button>
+                                <span>260</span>
+                            </div>
+                            <button type="button" class="button__ico ml-auto"> <ion-icon class="text-xl" name="share-outline"></ion-icon> </button>
+                            <button type="button" class="button__ico"> <ion-icon class="text-xl" name="bookmark-outline"></ion-icon> </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="p-5 h-full overflow-y-auto flex-1">
+
+                    <!-- comment list -->
+                    <div class="relative text-sm font-medium space-y-5"> 
+                
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Steeve </a>
+                                <p class="mt-0.5">What a beautiful, I love it. 😍 </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Monroe </a>
+                                <p class="mt-0.5">   You captured the moment.😎 </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-7.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Alexa </a>
+                                <p class="mt-0.5"> This photo is amazing!   </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> John  </a>
+                                <p class="mt-0.5"> Wow, You are so talented 😍 </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Michael </a>
+                                <p class="mt-0.5"> I love taking photos   🌳🐶</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Monroe </a>
+                                <p class="mt-0.5">  Awesome. 😊😢 </p>
+                            </div>
+                        </div> 
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Jesse </a>
+                                <p class="mt-0.5"> Well done 🎨📸   </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Steeve </a>
+                                <p class="mt-0.5">What a beautiful, I love it. 😍 </p>
+                            </div>
+                        </div> 
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-7.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Alexa </a>
+                                <p class="mt-0.5"> This photo is amazing!   </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> John  </a>
+                                <p class="mt-0.5"> Wow, You are so talented 😍 </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-5.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Michael </a>
+                                <p class="mt-0.5"> I love taking photos   🌳🐶</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 relative">
+                            <img src="assets/images/avatars/avatar-3.jpg" alt="" class="w-6 h-6 mt-1 rounded-full">
+                            <div class="flex-1">
+                                <a href="#" class="text-black font-medium inline-block dark:text-white"> Monroe </a>
+                                <p class="mt-0.5">  Awesome. 😊😢 </p>
+                            </div>
+                        </div>  
+                         
+                    </div>
+
+                </div>
+
+                <div class="bg-white p-3 text-sm font-medium flex items-center gap-2">
+                                
+                    <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full">
+                    
+                    <div class="flex-1 relative overflow-hidden ">
+                        <textarea placeholder="Add Comment...." rows="1" class="w-full resize-  px-4 py-2 focus:!border-transparent focus:!ring-transparent resize-y"></textarea>
+
+                        <div class="flex items-center gap-2 absolute bottom-0.5 right-0 m-3">
+                            <ion-icon class="text-xl flex text-blue-700" name="image"></ion-icon> 
+                            <ion-icon class="text-xl flex text-yellow-500" name="happy"></ion-icon> 
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="hidden text-sm rounded-full py-1.5 px-4 font-semibold bg-secondery"> Replay</button>
+                
+                </div>
+
+            </div>
+   
         </div>
-    </footer>
+        
+    </div>
 
-    
-    <!-- Uikit js you can use cdn  https://getuikit.com/docs/installation  or fine the latest  https://getuikit.com/docs/installation -->
-    <script src="{{ asset('assets/js/uikit.min.js')}} "></script>
-    <script src="{{  asset('assets/js/script.js') }}"></script>
+    <!-- create status -->
+    <div class="hidden lg:p-20 uk- open" id="create-status" uk-modal="">
+   
+        <div class="uk-modal-dialog tt relative overflow-hidden mx-auto bg-white shadow-xl rounded-lg md:w-[520px] w-full dark:bg-dark2">
 
+            <div class="text-center py-4 border-b mb-0 dark:border-slate-700">
+                <h2 class="text-sm font-medium text-black"> Create Status </h2>
+
+                <!-- close button -->
+                <button type="button" class="button-icon absolute top-0 right-0 m-2.5 uk-modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+     
+            </div>
+                    
+            <div class="space-y-5 mt-3 p-2">
+                <textarea class="w-full !text-black placeholder:!text-black !bg-white !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl   dark:!text-white dark:placeholder:!text-white dark:!bg-slate-800" name="" id=""  rows="6" placeholder="What do you have in mind?"></textarea>
+            </div>
+
+            <div class="flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap">
+                <button type="button" class="flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 dark:bg-sky-950 dark:border-sky-900">  
+                    <ion-icon name="image" class="text-base"></ion-icon>  
+                    Image 
+                </button>
+                <button type="button" class="flex items-center gap-1.5 bg-teal-50 text-teal-600 rounded-full py-1 px-2 border-2 border-teal-100 dark:bg-teal-950 dark:border-teal-900">  
+                    <ion-icon name="videocam" class="text-base"></ion-icon>  
+                    Video 
+                </button>
+                <button type="button" class="flex items-center gap-1.5 bg-orange-50 text-orange-600 rounded-full py-1 px-2 border-2 border-orange-100 dark:bg-yellow-950 dark:border-yellow-900">  
+                    <ion-icon name="happy" class="text-base"></ion-icon>  
+                    Feeling
+                </button>
+                <button type="button" class="flex items-center gap-1.5 bg-red-50 text-red-600 rounded-full py-1 px-2 border-2 border-rose-100 dark:bg-rose-950 dark:border-rose-900">  
+                    <ion-icon name="location" class="text-base"></ion-icon>  
+                    Check in 
+                </button>
+                <button type="button" class="grid place-items-center w-8 h-8 text-xl rounded-full bg-secondery">  
+                    <ion-icon name="ellipsis-horizontal"></ion-icon>
+                </button>
+            </div>
+ 
+            <div class="p-5 flex justify-between items-center">
+                <div>
+                    <button class="inline-flex items-center py-1 px-2.5 gap-1 font-medium text-sm rounded-full bg-slate-50 border-2 border-slate-100 group aria-expanded:bg-slate-100 aria-expanded: dark:text-white dark:bg-slate-700 dark:border-slate-600" type="button"> 
+                        Everyone
+                        <ion-icon name="chevron-down-outline" class="text-base duration-500 group-aria-expanded:rotate-180"></ion-icon> 
+                    </button>
+
+                    <div  class="p-2 bg-white rounded-lg shadow-lg text-black font-medium border border-slate-100 w-60 dark:bg-slate-700"
+                          uk-drop="offset:10;pos: bottom-left; reveal-left;animate-out: true; animation: uk-animation-scale-up uk-transform-origin-bottom-left ; mode:click">
+                               
+                        <form>
+                            <label>
+                                <input type="radio" name="radio-status" id="monthly1" class="peer appearance-none hidden" checked />
+                                <div class=" relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-secondery peer-checked:[&_.active]:block dark:bg-dark3">
+                                    <div class="text-sm">  Everyone </div> 
+                                    <ion-icon name="checkmark-circle" class="hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up"></ion-icon>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="radio-status" id="monthly1" class="peer appearance-none hidden" />
+                                <div class=" relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-secondery peer-checked:[&_.active]:block dark:bg-dark3">
+                                    <div class="text-sm"> Friends </div> 
+                                    <ion-icon name="checkmark-circle" class="hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up"></ion-icon>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="radio-status" id="monthly" class="peer appearance-none hidden" />
+                                <div class=" relative flex items-center justify-between cursor-pointer rounded-md p-2 px-3 hover:bg-secondery peer-checked:[&_.active]:block dark:bg-dark3">
+                                    <div class="text-sm"> Only me </div> 
+                                    <ion-icon name="checkmark-circle" class="hidden active absolute -translate-y-1/2 right-2 text-2xl text-blue-600 uk-animation-scale-up"></ion-icon>
+                                </div>
+                            </label>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="flex items-center gap-2"> 
+                    <button type="button" class="button bg-blue-500 text-white py-2 px-12 text-[14px]"> Create</button>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+
+    <!-- create story -->
+    <div class="hidden lg:p-20" id="create-story" uk-modal="">
+   
+        <div class="uk-modal-dialog tt relative overflow-hidden mx-auto bg-white p-7 shadow-xl rounded-lg md:w-[520px] w-full dark:bg-dark2">
+
+            <div class="text-center py-3 border-b -m-7 mb-0 dark:border-slate-700">
+                <h2 class="text-sm font-medium"> Create Status </h2>
+
+                <!-- close button -->
+                <button type="button" class="button__ico absolute top-0 right-0 m-2.5 uk-modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+     
+            </div>
+                    
+            <div class="space-y-5 mt-7">
+
+                <div> 
+                    <label for="" class="text-base">What do you have in mind? </label>
+                    <input type="text"  class="w-full mt-3">
+                </div>
+
+                <div>  
+                    <div class="w-full h-72 relative border1 rounded-lg overflow-hidden bg-[url('../images/ad_pattern.png')] bg-repeat">
+                    
+                        <label for="createStatusUrl" class="flex flex-col justify-center items-center absolute -translate-x-1/2 left-1/2 bottom-0 z-10 w-full pb-6 pt-10 cursor-pointer bg-gradient-to-t from-gray-700/60">
+                            <input id="createStatusUrl" type="file" class="hidden" />
+                            <ion-icon name="image" class="text-3xl text-teal-600"></ion-icon>
+                            <span class="text-white mt-2">Browse to Upload image </span>
+                        </label>
+
+                        <img id="createStatusImage" src="#" alt="Uploaded Image" accept="image/png, image/jpeg" style="display:none;" class="w-full h-full absolute object-cover">
+
+                    </div>
+
+                </div>
+                
+                <div class="flex justify-between items-center">
+
+                    <div class="flex items-start gap-2">
+                        <ion-icon name="time-outline" class="text-3xl text-sky-600  rounded-full bg-blue-50 dark:bg-transparent"></ion-icon>
+                        <p class="text-sm text-gray-500 font-medium"> Your Status will be available <br> for <span class="text-gray-800"> 24 Hours</span> </p>
+                    </div>
+
+                    <button type="button" class="button bg-blue-500 text-white px-8"> Create</button>
+
+                </div>
+
+            </div>
+        
+        </div>
+
+    </div>
+
+ 
+
+    <!-- Javascript  -->
+    <script src="{{asset('assets/js/uikit.min.js')}}"></script>
+    <script src="{{asset('assets/js/simplebar.js')}}"></script>
+    <script src="{{asset('assets/js/script.js')}}"></script>
+ 
+ 
     <!-- Ion icon -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
  
 
-    <!-- Dark mode -->
-    <script>
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-        } else {
-        document.documentElement.classList.remove('dark')
-        }
-
-        // Whenever the user explicitly chooses light mode
-        localStorage.theme = 'light'
-
-        // Whenever the user explicitly chooses dark mode
-        localStorage.theme = 'dark'
-
-        // Whenever the user explicitly chooses to respect the OS preference
-        localStorage.removeItem('theme')
-    </script>
-
 </body>
 </html>
-
-
-

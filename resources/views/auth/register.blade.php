@@ -100,7 +100,7 @@
               <div>
                   <label for="email" class="">First name</label>
                   <div class="mt-2.5">
-                      <input id="text" name="fname" type="text"  autofocus="" placeholder="First name" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
+                      <input id="text" name="fname" type="text"  autofocus="" value="{{ old('fname') }}" placeholder="First name" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
                   </div>
               </div>
   
@@ -108,7 +108,7 @@
               <div>
                   <label for="email" class="">Last name</label>
                   <div class="mt-2.5">
-                      <input id="text" name="lname" type="text" placeholder="Last name" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
+                      <input id="text" name="lname" type="text" value="{{ old('lname') }}" placeholder="Last name" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
                   </div>
               </div>
             
@@ -116,7 +116,7 @@
               <div class="col-span-2">
                   <label for="email" class="">Email address</label>
                   <div class="mt-2.5">
-                      <input id="email" name="email" type="email" placeholder="Email" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
+                      <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="Email" required="" class="!w-full !rounded-lg !bg-transparent !shadow-sm !border-slate-200 dark:!border-slate-800 dark:!bg-white/5"> 
                   </div>
               </div>
   
@@ -179,10 +179,10 @@
     
         <ul class="uk-slideshow-items w-full h-full"> 
             <li class="w-full">
-                <img src="assets/images/post/img-3.jpg"  alt="" class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                <img src="https://cdn.pixabay.com/photo/2024/01/07/16/00/grey-heron-8493489_1280.png"  alt="" class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
                 <div class="absolute bottom-0 w-full uk-tr ansition-slide-bottom-small z-10">
                     <div class="max-w-xl w-full mx-auto pb-32 px-5 z-30 relative"  uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true" > 
-                        <img class="w-12" src="assets/images/logo-icon.png" alt="Socialite html template">
+                        {{-- <img class="w-12" src="assets/images/logo-icon.png" alt="Socialite html template"> --}}
                         <h4 class="!text-white text-2xl font-semibold mt-7"  uk-slideshow-parallax="y: 600,0,0">  Connect With Friends </h4> 
                         <p class="!text-white text-lg mt-7 leading-8"  uk-slideshow-parallax="y: 800,0,0;"> This phrase is more casual and playful. It suggests that you are keeping your friends updated on what’s happening in your life.</p>   
                     </div> 
@@ -190,10 +190,10 @@
                 <div class="w-full h-96 bg-gradient-to-t from-black absolute bottom-0 left-0"></div>
             </li>
             <li class="w-full">
-              <img src="assets/images/post/img-2.jpg"  alt="" class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+              <img src="https://cdn.pixabay.com/photo/2024/01/31/19/56/tulips-8544741_1280.jpg"  alt="" class="w-full h-full object-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
               <div class="absolute bottom-0 w-full uk-tr ansition-slide-bottom-small z-10">
                   <div class="max-w-xl w-full mx-auto pb-32 px-5 z-30 relative"  uk-scrollspy="target: > *; cls: uk-animation-scale-up; delay: 100 ;repeat: true" > 
-                      <img class="w-12" src="assets/images/logo-icon.png" alt="Socialite html template">
+                      {{-- <img class="w-12" src="assets/images/logo-icon.png" alt="Socialite html template"> --}}
                       <h4 class="!text-white text-2xl font-semibold mt-7"  uk-slideshow-parallax="y: 800,0,0">  Connect With Friends </h4> 
                       <p class="!text-white text-lg mt-7 leading-8"  uk-slideshow-parallax="y: 800,0,0;"> This phrase is more casual and playful. It suggests that you are keeping your friends updated on what’s happening in your life.</p>   
                   </div> 
