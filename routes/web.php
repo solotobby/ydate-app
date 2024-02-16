@@ -38,6 +38,22 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['middleware' => 'auth'], function () { 
     Auth::routes(['auth']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+   //->name('home');
+    Route::group(['middleware' => ['role:member']], function () { 
+        Route::prefix('member')->group( function(){ 
+            Route::get('home', [App\Http\Controllers\MemberController::class, 'memberHome']);
+         });
+       
+     });
+
+     Route::group(['middleware' => ['role:admin']], function () {  
+        Route::prefix('admin')->group( function(){ 
+            Route::get('home', [App\Http\Controllers\HomeController::class, 'adminHome']);
+         });
+      
+     });
+   
 });
 
 

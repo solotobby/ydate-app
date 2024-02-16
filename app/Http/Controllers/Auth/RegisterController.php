@@ -7,8 +7,10 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -69,9 +71,15 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $profile = Profile::create(['user_id' => $user->id, 'reg_channel' => 'direct']);
+        Profile::create(['user_id' => $user->id, 'reg_channel' => 'direct']);
 
-        return [$user, $profile];
+        $roleId = Role::where('name', 'member')->first();
+
+        if($user){
+            Auth::login($user);
+            $user->assignRole($roleId->id);
+            return redirect('/home');
+        }
      }
 
     protected function validator(array $data)
