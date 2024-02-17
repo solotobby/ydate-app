@@ -55,18 +55,19 @@ class RegisterController extends Controller
         return view('auth.register');
      }
      public function processRegistration(Request $request){
-
+        
         $request->validate([
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user =  User::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
-            'user_name' => null,
+            'username' => null,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
