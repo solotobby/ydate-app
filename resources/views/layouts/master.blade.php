@@ -37,6 +37,8 @@
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
     <link rel="stylesheet" id="css-theme" href="{{asset('assets/css/themes/xmodern.min.css')}}">
     <!-- END Stylesheets -->
+
+    @yield('styles')
   </head>
 
   <body>
@@ -569,5 +571,7 @@
 
     <!-- Page JS Helpers (Highlight.js + Magnific Popup Plugins) -->
     <script>Dashmix.helpersOnLoad(['js-highlightjs', 'jq-magnific-popup']);</script>
+
+    @yield('scripts')
   </body>
 </html>

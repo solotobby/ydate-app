@@ -42,9 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
 
    //->name('home');
     Route::group(['middleware' => ['role:member']], function () { 
+
         Route::prefix('member')->group( function(){ 
             Route::get('home', [App\Http\Controllers\MemberController::class, 'memberHome']);
-         });
+            Route::get('onboarding', [App\Http\Controllers\OnboardController::class, 'initiateOnboarding'])->name('member.onboarding');
+        }); 
        
      });
 
