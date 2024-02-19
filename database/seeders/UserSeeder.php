@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
         $members = [
             ['id' => '1', 'fname' => 'Oluwatobi', 'lname' => 'Solomon', 'email' => 'daniel@hotmail.com', 'password' => bcrypt('solomon001')],
             ['id' => '2', 'fname' => 'Y', 'lname' => 'Date', 'email' => 'dinger@gmail.com', 'password' => bcrypt('solomon001')],
-           
         ];
         $roleId = Role::where('name', 'admin')->first()->id;
         foreach($members as $user)

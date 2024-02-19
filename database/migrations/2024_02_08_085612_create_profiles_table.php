@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('dob')->nullable();
             $table->string('avarta')->nullable();
             $table->string('city')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('gender_interest')->nullable();
             $table->string('country')->nullable();
             $table->string('country_code')->nullable();
             $table->string('google_id')->nullable();

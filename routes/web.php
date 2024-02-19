@@ -26,6 +26,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('register', [RegisterController::class, 'processRegistration']);
 
         Route::get('login', [LoginController::class, 'login']);
+        Route::post('login', [LoginController::class, 'processLogin']);
 
      });
 // Route::prefix('social')->name('facebook.')->group( function(){

@@ -55,18 +55,19 @@ class RegisterController extends Controller
         return view('auth.register');
      }
      public function processRegistration(Request $request){
-
+        
         $request->validate([
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user =  User::create([
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'user_name' => null,
+            'fname' => ucfirst($request->fname),
+            'lname' => ucfirst($request->lname),
+            'username' => $this->usernameGenerator($request->fname,$request->lname),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -80,7 +81,16 @@ class RegisterController extends Controller
             $user->assignRole($roleId->id);
             return redirect('/home');
         }
-     }
+    }
+
+    private function usernameGenerator($fname,$lname){
+        $f = substr($fname, 0, 3);
+        $l = substr($lname, 0, 3);
+        $rnd = rand(1000,99999);
+        $lower = strtolower($f.$l);
+        return '@'.$lower.$rnd;
+    }
+
 
     protected function validator(array $data)
     {
