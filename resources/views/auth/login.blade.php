@@ -189,11 +189,25 @@
                 <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
                 <div class="row g-0 justify-content-center">
                   <div class="col-sm-8 col-xl-6">
-                    <form class="js-validation-signin" action="" method="POST">
-                     
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form class="js-validation-signin" action="{{ url('auth/login') }}" method="POST">
+                     @csrf
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
-                              <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username">
+                              <input type="email" class="form-control" id="login-username" name="email" placeholder="Enter Email">
                               <span class="input-group-text">
                                 <i class="fa fa-user-circle"></i>
                               </span>
@@ -201,7 +215,7 @@
                         </div>
                         <div class="mb-4">
                             <div class="input-group input-group-lg">
-                              <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Password">
+                              <input type="password" class="form-control" id="login-password" name="password" placeholder="Enter Password">
                               <span class="input-group-text">
                                 <i class="fa fa-asterisk"></i>
                               </span>
