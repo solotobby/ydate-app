@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Belief;
+use App\Models\EducationBackground;
+use App\Models\Ethinicity;
+use App\Models\MaritalBackground;
+use App\Models\ProfessionalBackground;
 use App\Models\Profile;
 
 if(!function_exists('hasUpdatedInfo')){
@@ -14,3 +19,43 @@ if(!function_exists('hasUpdatedInfo')){
        
     }
 }
+
+if(!function_exists('educationalBackground')){
+     function educationalBackground(){
+         
+        return EducationBackground::all();
+        
+     }
+ }
+
+ if(!function_exists('professionalBackground')){
+     function professionalBackground(){
+         
+        return ProfessionalBackground::all();
+        
+     }
+ }
+
+ if(!function_exists('ethnicity')){
+     function ethnicity(){
+         
+        return Ethinicity::all();
+        
+     }
+ }
+
+ if(!function_exists('maritalStatus')){
+     function maritalStatus(){
+         
+        return MaritalBackground::all();
+        
+     }
+ }
+
+ if(!function_exists('belief')){
+     function belief(){
+         
+        return Belief::all();
+        
+     }
+ }
