@@ -26,7 +26,7 @@ class SystemSeeder extends Seeder
         ];
 
         $professionalBrackground = [
-            ['id'=>'1', 'name' => 'Sel Employed'],
+            ['id'=>'1', 'name' => 'Self Employed'],
             ['id'=>'2', 'name' => 'Unemployed'],
             ['id'=>'3', 'name' => 'Employed'],
             ['id'=>'4', 'name' => 'Student'],

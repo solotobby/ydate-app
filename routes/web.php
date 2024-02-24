@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SocialiteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,15 +38,16 @@ Route::group(['middleware' => 'web'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () { 
+    
     Auth::routes(['auth']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-   //->name('home');
     Route::group(['middleware' => ['role:member']], function () { 
 
         Route::prefix('member')->group( function(){ 
             Route::get('home', [App\Http\Controllers\MemberController::class, 'memberHome']);
-            Route::get('onboarding', [App\Http\Controllers\OnboardController::class, 'initiateOnboarding'])->name('member.onboarding');
+            Route::post('complete/onboarding', [\App\Http\Controllers\MemberController::class, 'completeOnboarding']);
+            // Route::get('onboarding', [App\Http\Controllers\OnboardController::class, 'initiateOnboarding'])->name('member.onboarding');
         }); 
        
      });
