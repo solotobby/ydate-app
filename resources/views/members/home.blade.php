@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'YDate | Dashboard')
 @section('styles')
-<link rel="stylesheet" href="{{asset('assets/js/plugins/slick-carousel/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/js/plugins/slick-carousel/slick.css')}}">
     <link rel="stylesheet" href="{{asset('assets/js/plugins/slick-carousel/slick-theme.css')}}">
 
     <style>
@@ -25,6 +25,31 @@
 
 @section('content')
 
+ <!-- Hero -->
+ <div class="rounded border overflow-hidden push">
+  <div class="bg-image pt-9" style="background-image: url('{{asset('assets/media/photos/photo19@2x.jpg')}}');"></div>
+  <div class="px-4 py-3 bg-body-extra-light d-flex flex-column flex-md-row align-items-center">
+    <a class="d-block img-link mt-n5" href="#">
+      <img class="img-avatar img-avatar128 img-avatar-thumb" src="{{asset('assets/media/avatars/avatar13.jpg')}}" alt="">
+    </a>
+    <div class="ms-3 flex-grow-1 text-center text-md-start my-3 my-md-0">
+      <h1 class="fs-4 fw-bold mb-1">{{ auth()->user()->fname }} {{ auth()->user()->lname }}</h1>
+      <h2 class="fs-sm fw-medium text-muted mb-0">
+        <a href="javascript:void(0)" class="text-muted">4,5k Likes</a> &bull; <a href="javascript:void(0)" class="text-muted">100 Following</a>
+      </h2>
+    </div>
+    <div class="space-x-1">
+      <a href="" class="btn btn-sm btn-alt-secondary space-x-1">
+        <i class="fa fa-pencil-alt opacity-50"></i>
+        <span>Edit Profile</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- END Hero -->
+
+
+
 <!-- Page Content -->
 <div class="content">
     <div class="row">
@@ -45,18 +70,19 @@
         <!-- END Post Update -->
 
         <!-- Timeline -->
-        
+
         <!-- Update #3 -->
+        @foreach ($tls as $tl)
         <div class="block block-rounded">
           <div class="block-header block-header-default">
             <div>
-              <a class="img-link" href="javascript:void(0)">
+              {{-- <a class="img-link" href="javascript:void(0)">
                 <img class="img-avatar img-avatar32 img-avatar-thumb" src="{{asset('assets/media/avatars/avatar5.jpg')}}" alt="">
-              </a>
-              <a class="fw-semibold" href="javascript:void(0)">Melissa Rice</a>
-              <span class="fs-sm text-muted">8 hrs ago</span>
+              </a> --}}
+              <a class="fw-semibold" href="javascript:void(0)">{{ $tl['user']['fname'] }}</a>
+              <span class="fs-sm text-muted"> - {{ $tl['age'] }} years</span>
             </div>
-            <div class="block-options">
+            {{-- <div class="block-options">
               <div class="dropdown">
                 <button type="button" class="btn-block-option dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -75,17 +101,17 @@
                   </a>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
           <div class="block-content">
-            <p>
+            {{-- <p>
               Our city escape continues..
-            </p>
+            </p> --}}
             <div class="row g-sm js-gallery img-fluid-100">
               <!-- Magnific Popup (.js-gallery class is initialized in Helpers.jqMagnific()) -->
               <!-- For more info and examples you can check out http://dimsemenov.com/plugins/magnific-popup/ -->
               <div class="col-12">
-                <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="assets/media/photos/photo11@2x.jpg">
+                <a class="img-link img-link-simple img-link-zoom-in img-lightbox" href="assets/media/photos/photo11.jpg">
                   <img class="img-fluid" src="{{asset('assets/media/photos/photo11.jpg')}}" alt="">
                 </a>
               </div>
@@ -103,14 +129,14 @@
                   <i class="fa fa-comment-alt opacity-50 me-1"></i> Comment
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
                   <i class="fa fa-share-alt opacity-50 me-1"></i> Share
                 </a>
-              </li>
+              </li> --}}
             </ul>
           </div>
-          <div class="block-content block-content-full bg-body-light">
+          {{-- <div class="block-content block-content-full bg-body-light">
             <p class="fs-sm">
               <i class="fa fa-thumbs-up text-info"></i>
               <i class="fa fa-heart text-danger"></i>
@@ -122,8 +148,10 @@
             <form action="db_social.html" method="POST" onsubmit="return false;">
               <input type="text" class="form-control form-control-alt" placeholder="Write a comment..">
             </form>
-          </div>
+          </div> --}}
         </div>
+        @endforeach
+      
         <!-- END Update #3 -->
 
         
@@ -223,13 +251,18 @@
                   <form action="{{ url('member/complete/onboarding') }}" method="POST" onsubmit="return submitButton()">
                     @csrf
                     <div class="js-slider slick-dotted-inner" data-dots="true" data-arrows="false" data-infinite="false">
-                      
                       <div class="p-5">
-                        {{-- <i class="fa fa-award fa-3x text-muted my-4"></i> --}}
-                        {{-- <h3 class="fs-2 fw-light mb-2">Welcome to your app!</h3> --}}
-                        {{-- <p class="text-muted">
-                          This is a modal you can show to your users when they first sign in to their dashboard. It is a great place to welcome and introduce them to your application and its functionality.
-                        </p> --}}
+                        <i class="fa fa-award fa-3x text-muted my-4"></i> 
+                        <h3 class="fs-2 fw-light mb-2">Welcome to YDate!</h3>
+                       <p class="text-muted">
+                          Setup your account in two minutes, meet and interract with amazing people.
+                        </p>
+                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 1);">
+                          Continue <i class="fa fa-arrow-right ms-1"></i>
+                        </button>
+                      </div>
+                      <div class="p-5">
+                        
                         
                         <h2 class="content-heading">I am a</h2>
                         <div class="row push mb-2">
@@ -363,7 +396,7 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 1);">
+                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 2);">
                           Continue <i class="fa fa-arrow-right ms-1"></i>
                         </button>
                       </div>
@@ -418,7 +451,7 @@
                         </div>
 
 
-                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 2);">
+                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 3);">
                           Continue <i class="fa fa-arrow-right ms-1"></i>
                         </button>
                       </div>
@@ -474,7 +507,7 @@
                         </div>
 
 
-                          <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 3);">
+                          <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 4);">
                             Continue <i class="fa fa-arrow-right ms-1"></i>
                           </button>
                       </div>
@@ -557,7 +590,7 @@
 
                         <div id="genderError" class="error"></div>
 
-                          <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 4);">
+                          <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 5);">
                             Continue <i class="fa fa-arrow-right ms-1"></i>
                           </button>
                       </div>

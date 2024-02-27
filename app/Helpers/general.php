@@ -102,9 +102,9 @@ if(!function_exists('educationalBackground')){
           $tlIds = [];
           
           if($currentUserPreference->gender_interest == 'Both'){
-               $tlIds = Profile::with(['user'])->whereNot('user_id', $id)->whereIn('gender', ['Man', 'Woman'])->select(['id','gender', 'user_id', 'avarta', 'age', 'gender'])->get();
+               $tlIds = Profile::with(['user'])->whereNot('user_id', $id)->whereIn('gender', ['Man', 'Woman'])->select(['id', 'age','gender', 'user_id', 'avarta', 'age', 'gender'])->get();
           }else{
-               $tlIds = Profile::with(['user'])->whereNot('user_id', $id)->where('gender', $currentUserPreference->gender_interest)->select(['id','gender', 'user_id', 'avarta', 'age', 'gender'])->get();
+               $tlIds = Profile::with(['user'])->whereNot('user_id', $id)->where('gender', $currentUserPreference->gender_interest)->select(['id', 'age', 'gender', 'user_id', 'avarta', 'age', 'gender'])->get();
      
           }
 
