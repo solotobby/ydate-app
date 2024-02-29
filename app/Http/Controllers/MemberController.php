@@ -14,6 +14,7 @@ class MemberController extends Controller
     }
 
     public function completeOnboarding(Request $request){
+       
         $age = $this->calculateAge($request->year);
         $profile = onboardMember($request, $age);
         return back();
@@ -22,5 +23,9 @@ class MemberController extends Controller
     private function calculateAge($year){
         $currentYear = date('Y');
         return $currentYear - $year;
+    }
+
+    public function chat(){
+        return view('members.chat');
     }
 }

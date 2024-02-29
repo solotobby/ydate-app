@@ -15,7 +15,11 @@ class Profile extends Model
         'reg_channel',
         'city',
         'country',
-        'country_code'
+        'country_code',
+        'about',
+        'occupation',
+        'age_bracket',
+        'prospective_partner'
     ];
 
     public function user(){

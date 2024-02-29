@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Belief;
 use App\Models\EducationBackground;
 use App\Models\Ethinicity;
+use App\Models\Interest;
 use App\Models\MaritalBackground;
 use App\Models\ProfessionalBackground;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -57,6 +58,21 @@ class SystemSeeder extends Seeder
             ['id'=>'7', 'name' => 'Atheist'],
         ];
 
+        $interests = [
+            ['id'=>'1', 'name' => 'Cooking'],
+            ['id'=>'2', 'name' => 'Dancing'],
+            ['id'=>'3', 'name' => 'Games'],
+            ['id'=>'4', 'name' => 'Sport'],
+            ['id'=>'5', 'name' => 'Music'],
+            ['id'=>'6', 'name' => 'Festivals'],
+            ['id'=>'7', 'name' => 'Fashion'],
+            ['id'=>'8', 'name' => 'Traveling'],
+            ['id'=>'9', 'name' => 'Surfing'],
+            ['id'=>'10', 'name' => 'Biking'],
+            ['id'=>'11', 'name' => 'Skydiving'],
+            ['id'=>'12', 'name' => 'Skating'],
+        ];
+
         foreach($educationalBrackground as $education){
             EducationBackground::create($education);
         }
@@ -75,6 +91,10 @@ class SystemSeeder extends Seeder
 
         foreach($belief as $be){
             Belief::create($be);
+        }
+
+        foreach($interests as $int){
+            Interest::create($int);
         }
     }
 }

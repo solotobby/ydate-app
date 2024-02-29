@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{asset('assets/js/plugins/slick-carousel/slick-theme.css')}}">
 
     <style>
+      
       .notification {
           position: fixed;
           top: 20px;
@@ -19,6 +20,7 @@
       .show {
           display: block;
       }
+
       </style>
 
 @endsection
@@ -248,22 +250,15 @@
 
                   <div id="errorNotification" class="notification"></div>
 
-                  <form action="{{ url('member/complete/onboarding') }}" method="POST" onsubmit="return submitButton()">
+                  <form action="{{ url('member/complete/onboarding') }}" method="POST" onsubmit="return validateForm()">
                     @csrf
                     <div class="js-slider slick-dotted-inner" data-dots="true" data-arrows="false" data-infinite="false">
                       <div class="p-5">
                         <i class="fa fa-award fa-3x text-muted my-4"></i> 
                         <h3 class="fs-2 fw-light mb-2">Welcome to YDate!</h3>
-                       <p class="text-muted">
+                        <p class="text-muted">
                           Setup your account in two minutes, meet and interract with amazing people.
                         </p>
-                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 1);">
-                          Continue <i class="fa fa-arrow-right ms-1"></i>
-                        </button>
-                      </div>
-                      <div class="p-5">
-                        
-                        
                         <h2 class="content-heading">I am a</h2>
                         <div class="row push mb-2">
                           <div class="col-lg-12">
@@ -340,6 +335,15 @@
                             </div>
                         </div>
 
+                        <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 1);">
+                          Continue <i class="fa fa-arrow-right ms-1"></i>
+                        </button>
+                      </div>
+                      <div class="p-5">
+                        
+                        
+                       
+
                         <h2 class="content-heading pt-0">I am looking for</h2>
                         <div class="row push mb-2">
                           <div class="col-lg-12">
@@ -396,6 +400,38 @@
                             </div>
                         </div>
 
+                        <h2 class="content-heading">What do you want in prospective partner</h2>
+                        <div class="col-lg-12">
+                          <div class="mb-4">
+                            <textarea class="js-maxlength form-control" id="prospective_partner" name="prospective_partner" rows="3" maxlength="100" placeholder="" data-always-show="true"></textarea>
+                          </div>
+                        </div>
+
+                        <h2 class="content-heading">Select Age bracket of prospective partner</h2>
+                        <div class="row push mb-2">
+                          <div class="col-lg-12">
+                             <div class="row">
+                                <div class="col-lg-12">
+                                  <div class="input-group input-group-lg">
+                                    <select name="age_bracket" id="age_bracket" class="form-control">
+                                    <option value="">Select Age Bracket</option>
+                                        <option value="18-25">18-25</option>
+                                        <option value="26-30">26-30</option>
+                                        <option value="31-35">36-40</option>
+                                        <option value="40 above">40 above</option>
+                                        
+                                    </select>
+                                    <span class="input-group-text">
+                                      <i class="fa fa-table"></i>
+                                    </span>
+                                  </div>
+                                </div>
+
+                             </div>
+                          
+                            </div>
+                        </div>
+
                         <button type="button" class="btn btn-alt-primary mb-4" onclick="jQuery('.js-slider').slick('slickGoTo', 2);">
                           Continue <i class="fa fa-arrow-right ms-1"></i>
                         </button>
@@ -446,6 +482,26 @@
                                       </div>
                                   @endforeach
                                   
+                              </div>
+                            </div>
+                        </div>
+
+                        <h2 class="content-heading">Whats your occupation</h2>
+                        <div class="row push mb-2">
+                          <div class="col-lg-12">
+                              <div class="row items-push">
+                                
+                               
+                                  <div class="input-group input-group-lg">
+                                
+                                    <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Enter your occupation">
+                                  
+                                    <span class="input-group-text">
+                                      <i class="fa fa-table"></i>
+                                    </span>      
+                                  </div>
+                                
+        
                               </div>
                             </div>
                         </div>
@@ -563,7 +619,6 @@
                                       <i class="fa fa-table"></i>
                                     </span>
                                   </div>
-
                                 </div>
 
                                 <div class="col-lg-6">
@@ -596,21 +651,41 @@
                       </div>
 
                       <div class="slick-slide p-5">
-                        <i class="fa fa-user-check fa-3x text-muted my-4"></i>
-                        <h3 class="fs-2 fw-light">Let us know your name</h3>
-                          {{-- <form class="mb-3">
-                            <div class="mb-4">
-                              <input type="text" class="form-control form-control-alt" id="onboard-first-name" name="onboard-first-name" placeholder="Enter your first name..">
-                            </div>
-                            <div class="mb-4">
-                              <input type="text" class="form-control form-control-alt" id="onboard-last-name" name="onboard-last-name" placeholder="Enter your last name..">
-                            </div>
-                          </form> --}}
-                          {{-- <button type="button" class="btn btn-primary mb-4" data-bs-dismiss="modal" aria-label="Close">
-                            Get Started <i class="fa fa-check opacity-50 ms-1"></i>
-                          </button> --}}
+                        {{-- <i class="fa fa-user-check fa-3x text-muted my-4"></i>
+                        <h3 class="fs-2 fw-light">Let us know your name</h3> --}}
+                        <h2 class="content-heading">What interest you</h2>
+                        <div class="col-lg-12">
+                          <div class="row">
+                          @foreach (interests() as $interest)
+                          
+                              <div class="col-md-4">
+                                  <div class="form-check form-block">
+                                  <input class="form-check-input" type="checkbox" value="{{$interest->id}}" id="interest-{{$interest->id}}" name="interest[]" >
+                                  <label class="form-check-label" for="interest-{{$interest->id}}">
+                                      <span class="d-flex align-items-center">
+                                      <span class="ms-2">
+                                          <span class="fw-bold">{{$interest->name}}</span>
+                                      </span>
+                                      </span>
+                                  </label>
+                                  </div>
+                              </div>
+                        
+                          @endforeach
+                        </div>
+                        </div>
+
+                      
+
+                        <h2 class="content-heading">Tell us about yourself</h2>
+                        <div class="col-lg-12">
+                          <div class="mb-4">
+                            <textarea class="js-maxlength form-control" id="about_me" name="about" rows="5" maxlength="150" placeholder="It even works on textareas.." data-always-show="true"></textarea>
+                          </div>
+                        </div>
+                          
                           <button type="submit"  class="btn btn-primary mb-4">
-                            Get Started <i class="fa fa-check opacity-50 ms-1"></i>
+                            Start findng love <i class="fa fa-check opacity-50 ms-1"></i>
                           </button>
                       </div>
 
@@ -633,13 +708,18 @@
  <!-- Page JS Plugins -->
  <script src="{{asset('assets/js/plugins/slick-carousel/slick.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/be_comp_onboarding.min.js')}}"></script>
+<script src="{{asset('assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
+ <!-- Page JS Helpers (Flatpickr + BS Datepicker + BS Maxlength + Select2 + Ion Range Slider + Masked Inputs + Password Strength Meter plugins) -->
+ <script>Dashmix.helpersOnLoad(['jq-maxlength']);</script>
 
 <script>
-  function submitButton() {
-      // var name = document.getElementById('name').value;
+function validateForm(){
+
       var gender = document.querySelector('input[name="gender"]:checked');
       var gender_interest = document.querySelector('input[name="gender_interest"]:checked');
       var relationship_interest = document.querySelector('input[name="relationship_interest"]:checked');
+      var prospective_partner = document.getElementById('prospective_partner').value.trim();
+      
       var educational_background = document.querySelector('input[name="educational_background"]:checked');
       var professional_background = document.querySelector('input[name="professional_background"]:checked');
       var ethnicity = document.querySelector('input[name="ethnicity"]:checked');
@@ -647,13 +727,16 @@
       var belief = document.querySelector('input[name="belief"]:checked');
       var month = document.getElementById('month').value.trim();
       var year = document.getElementById('year').value.trim();
+      var about_me = document.getElementById('about_me').value.trim();
+      var occupation = document.getElementById('occupation').value.trim();
+      var age_bracket = document.getElementById('age_bracket').value.trim();
       
-     
-      
+
       if (!gender) {
           displayErrorNotification('Please Select Gender');
           return false;
        }
+
        if (!gender_interest) {
           displayErrorNotification('Please Select Gender you are interested in');
           return false;
@@ -674,6 +757,14 @@
           displayErrorNotification('Please Select your ethnic Background');
           return false;
        }
+       if (age_bracket === ''){
+        displayErrorNotification('Please Select prospective partner Age Bracket');
+        return false
+       }
+       if (occupation === '') {
+          displayErrorNotification('Please Enter your occupation');
+          return false;
+       }
        if (!marital_status) {
           displayErrorNotification('Please Select your Marital Status');
           return false;
@@ -692,12 +783,25 @@
           return false;
        }
 
-       return true;
-      
-  }
+       if (about_me === '') {
+          displayErrorNotification('Please Fill the about you');
+          return false;
+       }
 
- 
-    function displayErrorNotification(errorMessage) {
+      
+
+      
+
+       if (prospective_partner === ''){
+        displayErrorNotification('Please Enter what you want in a prospective partner ');
+        return false;
+       }
+
+       return true;
+
+}
+
+   function displayErrorNotification(errorMessage) {
         var notification = document.getElementById('errorNotification');
         notification.innerText = errorMessage;
         notification.classList.add('show');
@@ -705,6 +809,91 @@
             notification.classList.remove('show');
         }, 4000); // Remove the notification after 3 seconds
     }
+
+
+  // function submitButton() {
+      
+  //     // var name = document.getElementById('name').value;
+  //     var gender = document.querySelector('input[name="gender"]:checked');
+  //     var gender_interest = document.querySelector('input[name="gender_interest"]:checked');
+  //     var relationship_interest = document.querySelector('input[name="relationship_interest"]:checked');
+  //     var educational_background = document.querySelector('input[name="educational_background"]:checked');
+  //     var professional_background = document.querySelector('input[name="professional_background"]:checked');
+  //     var ethnicity = document.querySelector('input[name="ethnicity"]:checked');
+  //     var marital_status = document.querySelector('input[name="marital_status"]:checked');
+  //     var belief = document.querySelector('input[name="belief"]:checked');
+  //     var month = document.getElementById('month').value.trim();
+  //     var year = document.getElementById('year').value.trim();
+  //     var about-me = document.getElementById('about-me').value.trim();
+  //     var occupation = document.getElementById('occupation').value.trim();
+      
+     
+      
+  //     if (!gender) {
+  //         displayErrorNotification('Please Select Gender');
+  //         return false;
+  //      }
+  //      if (!gender_interest) {
+  //         displayErrorNotification('Please Select Gender you are interested in');
+  //         return false;
+  //      }
+  //      if (!relationship_interest) {
+  //         displayErrorNotification('Please Select Relationship you are interested in');
+  //         return false;
+  //      }
+  //      if (!educational_background) {
+  //         displayErrorNotification('Please Select Educational Background');
+  //         return false;
+  //      }
+  //      if (!professional_background) {
+  //         displayErrorNotification('Please Select Professional Background');
+  //         return false;
+  //      }
+  //      if (!ethnicity) {
+  //         displayErrorNotification('Please Select your ethnic Background');
+  //         return false;
+  //      }
+  //      if (!marital_status) {
+  //         displayErrorNotification('Please Select your Marital Status');
+  //         return false;
+  //      }
+  //      if (!belief) {
+  //         displayErrorNotification('Please Select your religious belief');
+  //         return false;
+  //      }
+
+  //      if (month === '') {
+  //         displayErrorNotification('Please Select your month of birth');
+  //         return false;
+  //      }
+  //      if (year === '') {
+  //         displayErrorNotification('Please Select your year of birth');
+  //         return false;
+  //      }
+
+  //      if (about-me === '') {
+  //         displayErrorNotification('Please Fill the about you');
+  //         return false;
+  //      }
+
+  //      if (occupation === '') {
+  //         displayErrorNotification('Please Enter your occupation');
+  //         return false;
+  //      }
+
+  //      return true;
+      
+  // }
+
+ 
+  //   function displayErrorNotification(errorMessage) {
+  //       var notification = document.getElementById('errorNotification');
+  //       notification.innerText = errorMessage;
+  //       notification.classList.add('show');
+  //       setTimeout(function(){
+  //           notification.classList.remove('show');
+  //       }, 4000); // Remove the notification after 3 seconds
+  //   }
 
   
   </script>

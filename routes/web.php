@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('login', function () {
+//     return view('auth.login');
+// });
+
 Route::group(['middleware' => 'web'], function () {
 
     Route::prefix('auth')->group( function(){ 
@@ -47,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::prefix('member')->group( function(){ 
             Route::get('home', [App\Http\Controllers\MemberController::class, 'memberHome']);
             Route::post('complete/onboarding', [\App\Http\Controllers\MemberController::class, 'completeOnboarding']);
+            Route::get('chat', [\App\Http\Controllers\MemberController::class, 'chat']);
             // Route::get('onboarding', [App\Http\Controllers\OnboardController::class, 'initiateOnboarding'])->name('member.onboarding');
         }); 
        

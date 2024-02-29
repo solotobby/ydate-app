@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('marital_status')->nullable();
             $table->string('belief')->nullable();
             $table->longText('about')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('age_bracket')->nullable();
+            $table->longText('prospective_partner')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->string('country_code')->nullable();

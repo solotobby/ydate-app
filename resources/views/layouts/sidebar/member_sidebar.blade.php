@@ -3,7 +3,7 @@
           <div class="content-side">
             <ul class="nav-main">
               <li class="nav-main-item">
-                <a class="nav-main-link active" href="db_social.html">
+                <a class="nav-main-link active" href="{{ url('home') }}">
                   <i class="nav-main-link-icon fa fa-user-circle"></i>
                   <span class="nav-main-link-name">My Profile</span>
                 </a>
@@ -16,7 +16,7 @@
                 </a>
               </li>
               <li class="nav-main-item">
-                <a class="nav-main-link" href="">
+                <a class="nav-main-link" href="{{ url('member/chat') }}">
                   <i class="nav-main-link-icon fa fa-envelope-open"></i>
                   <span class="nav-main-link-name">Messages</span>
                   <span class="nav-main-link-badge badge rounded-pill bg-info">1</span>

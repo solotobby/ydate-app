@@ -3,9 +3,11 @@
 use App\Models\Belief;
 use App\Models\EducationBackground;
 use App\Models\Ethinicity;
+use App\Models\Interest;
 use App\Models\MaritalBackground;
 use App\Models\ProfessionalBackground;
 use App\Models\Profile;
+use App\Models\UserInterest;
 
 if(!function_exists('hasUpdatedInfo')){
     function hasUpdatedInfo(){
@@ -68,6 +70,14 @@ if(!function_exists('educationalBackground')){
      }
  }
 
+ if(!function_exists('interests')){
+     function interests(){
+         
+        return Interest::all();
+        
+     }
+ }
+
  if(!function_exists('onboardMember')){
      function onboardMember($request, $age){
                 
@@ -86,8 +96,15 @@ if(!function_exists('educationalBackground')){
           $profile->marital_status = $request->marital_status;
           $profile->belief = $request->belief;
           $profile->about = $request->about;
+          $profile->age_bracket = $request->age_bracket;
+          $profile->prospective_partner = $request->prospective_partner;
+          $profile->occupation = $request->occupation;
           $profile->is_onboarded = true;
           $profile->save();
+
+          foreach($request->interest as $interest){
+               UserInterest::create(['user_id' => auth()->user()->id, 'interest_id' => $interest]);
+          }
 
           return $profile;
 
